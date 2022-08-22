@@ -14,7 +14,7 @@ export const Container = styled.div`
   }
 
   img {
-    z-index: 9999;
+    z-index: 1;
     height: 120px;
     max-width: 100px;
   }

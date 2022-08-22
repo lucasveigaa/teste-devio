@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import categoryDesserts from '../../assets/category-desserts.png';
 import categoryDrinks from '../../assets/category-drinks.png';
 import categoryHamburguer from '../../assets/category-hamburguer.png';
@@ -5,6 +6,7 @@ import categorySideDishes from '../../assets/category-side-dishes.png';
 import { CardItemCategory } from '../../components/CardItemCategory';
 import { CardProduct } from '../../components/CardProduct';
 import { Header } from '../../components/Header';
+import { ModalRequest } from '../../components/ModalRequest';
 import { Products } from '../../services/products';
 import {
   CancelButton,
@@ -18,9 +20,12 @@ import {
 } from './styles';
 
 export function Home() {
+  const [modalIsOpen, setModalisOpen] = useState(false);
+
   return (
     <>
       <Header />
+      <ModalRequest modalIsOpen={modalIsOpen} setModalisOpen={setModalisOpen} />
       <Container>
         <div>
           <h1>Seja bem vindo!</h1>
@@ -57,7 +62,9 @@ export function Home() {
         <ContainerButtons>
           <div>
             <CancelButton type="button">Cancelar</CancelButton>
-            <FinalizeButton type="button">Finalizar pedido</FinalizeButton>
+            <FinalizeButton onClick={() => setModalisOpen(true)} type="button">
+              Finalizar pedido
+            </FinalizeButton>
           </div>
         </ContainerButtons>
       </Container>
