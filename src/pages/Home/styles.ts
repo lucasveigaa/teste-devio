@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   max-width: 1120px;
-  padding: 0.5rem;
+  padding: 1rem;
   margin: 0 auto;
   margin-top: 3rem;
 
@@ -30,15 +30,34 @@ export const ContainerCategories = styled.div`
 `;
 
 export const DivItensCategories = styled.div`
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: auto;
 
   @media (max-width: 700px) {
-    /* flex-direction: column;
-      justify-content: center;
-      align-items: center; */
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: auto;
+  }
+`;
+
+export const ContainerProducts = styled.main`
+  margin-top: 3rem;
+
+  span {
+    color: #5e5e5e;
+    font-size: 0.75rem;
+  }
+`;
+
+export const SubContainerProducts = styled.div`
+  margin-top: 2rem;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: auto;
+  grid-row-gap: 3rem;
+
+  @media (max-width: 700px) {
+    grid-template-columns: repeat(2, 1fr);
   }
 `;

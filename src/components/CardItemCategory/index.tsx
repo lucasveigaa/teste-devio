@@ -1,11 +1,11 @@
 import { Container } from './styles';
 
-interface ItemCategoryProps {
+interface CardItemCategoryProps {
   img: string;
   category: string;
 }
 
-export function ItemCategory({ img, category }: ItemCategoryProps) {
+export function CardItemCategory({ img, category }: CardItemCategoryProps) {
   return (
     <Container>
       <img src={img} alt="Hamburguer" />

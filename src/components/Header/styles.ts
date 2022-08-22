@@ -4,13 +4,20 @@ export const Container = styled.header`
   background: #095812;
   color: #fff;
   font-size: 1.25rem;
-  padding: 0.875rem 2rem;
+`;
 
+export const SubContainer = styled.div`
+  padding: 0.875rem 2rem;
   display: flex;
   justify-content: space-between;
-  max-width: 1300px;
-  margin: 0 auto;
   align-items: center;
+  max-width: 1440px;
+  margin: 0 auto;
+
+  @media (max-width: 380px) {
+    flex-direction: column;
+    gap: 1rem;
+  }
 
   strong {
     margin-left: 0.5rem;
