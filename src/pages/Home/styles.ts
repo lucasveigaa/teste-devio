@@ -61,3 +61,43 @@ export const SubContainerProducts = styled.div`
     grid-template-columns: repeat(2, 1fr);
   }
 `;
+
+export const ContainerButtons = styled.div`
+  margin-top: 3rem;
+  gap: 2rem;
+  display: flex;
+  justify-content: flex-end;
+  margin-right: calc(25% - 180px);
+
+  @media (max-width: 500px) {
+    flex-direction: column;
+  }
+`;
+
+export const Button = styled.button`
+  padding: 0.65rem 0;
+  width: 200px;
+  margin-left: 3rem;
+  border-radius: 10px;
+  font-weight: 700;
+
+  &:hover {
+    filter: brightness(90%);
+    cursor: pointer;
+  }
+`;
+
+export const CancelButton = styled(Button)`
+  background: #fff;
+  color: #929292;
+  border: 1px solid #929292;
+
+  @media (max-width: 500px) {
+    margin-bottom: 0.5rem;
+  }
+`;
+export const FinalizeButton = styled(Button)`
+  background: #929292;
+  border: 1px solid #929292;
+  color: #fff;
+`;

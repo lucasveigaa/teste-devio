@@ -7,10 +7,13 @@ import { CardProduct } from '../../components/CardProduct';
 import { Header } from '../../components/Header';
 import { Products } from '../../services/products';
 import {
+  CancelButton,
   Container,
+  ContainerButtons,
   ContainerCategories,
   ContainerProducts,
   DivItensCategories,
+  FinalizeButton,
   SubContainerProducts,
 } from './styles';
 
@@ -51,6 +54,12 @@ export function Home() {
             ))}
           </SubContainerProducts>
         </ContainerProducts>
+        <ContainerButtons>
+          <div>
+            <CancelButton type="button">Cancelar</CancelButton>
+            <FinalizeButton type="button">Finalizar pedido</FinalizeButton>
+          </div>
+        </ContainerButtons>
       </Container>
     </>
   );
