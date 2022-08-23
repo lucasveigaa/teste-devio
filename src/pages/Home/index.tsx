@@ -28,6 +28,11 @@ export function Home() {
   const [selectedProduct, setSelectedProduct] = useState({} as TypeProduct);
   const { cart } = useContext(CartContext);
 
+  const totalCartValue = cart.reduce(
+    (acum, item) => acum + item.amountProduct * item.price,
+    0,
+  );
+
   return (
     <>
       <ModalRequest
@@ -71,21 +76,23 @@ export function Home() {
             ))}
           </SubContainerProducts>
         </ContainerProducts>
-        <ContainerRequests>
-          {cart.map(item => (
-            <Requests key={item.id}>
-              <div>
-                <span className="amount">{item.amountProduct}x</span>
-                <span>{item.title}</span>
-              </div>
-              <span>R$ {item.price}</span>
-            </Requests>
-          ))}
-          <ContainerTotalAmount>
-            <span>Total do pedido:</span>
-            <strong>R$ 30,50</strong>
-          </ContainerTotalAmount>
-        </ContainerRequests>
+        {cart.length && (
+          <ContainerRequests>
+            {cart.map(item => (
+              <Requests key={item.id}>
+                <div>
+                  <span className="amount">{item.amountProduct}x</span>
+                  <span>{item.title}</span>
+                </div>
+                <span>R$ {item.price * item.amountProduct}</span>
+              </Requests>
+            ))}
+            <ContainerTotalAmount>
+              <span>Total do pedido:</span>
+              <strong>R$ {totalCartValue}</strong>
+            </ContainerTotalAmount>
+          </ContainerRequests>
+        )}
         <ContainerButtons>
           <div>
             <CancelButton type="button">Cancelar</CancelButton>
