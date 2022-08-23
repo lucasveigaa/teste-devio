@@ -5,7 +5,6 @@ import categoryHamburguer from '../../assets/category-hamburguer.png';
 import categorySideDishes from '../../assets/category-side-dishes.png';
 import { CardItemCategory } from '../../components/CardItemCategory';
 import { CardProduct } from '../../components/CardProduct';
-import { Header } from '../../components/Header';
 import { ModalRequest } from '../../components/ModalRequest';
 import { Products } from '../../services/products';
 import {
@@ -24,7 +23,6 @@ export function Home() {
 
   return (
     <>
-      <Header />
       <ModalRequest modalIsOpen={modalIsOpen} setModalisOpen={setModalisOpen} />
       <Container>
         <div>

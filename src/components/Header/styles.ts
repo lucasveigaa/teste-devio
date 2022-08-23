@@ -19,21 +19,26 @@ export const SubContainer = styled.div`
     gap: 1rem;
   }
 
+  a {
+    color: #fff;
+    text-decoration: none;
+  }
+
   strong {
     margin-left: 0.5rem;
   }
 
-  a {
-    text-decoration: none;
-    color: #fff;
-    margin-right: 2rem;
-    font-size: 0.75rem;
-    font-weight: 700;
+  nav {
+    a {
+      margin-right: 2rem;
+      font-size: 0.75rem;
+      font-weight: 700;
 
-    &.isOnThispage {
-      padding: 0.4rem 1.2rem;
-      background: #063a0c;
-      border-radius: 10px;
+      &.isOnThispage {
+        padding: 0.4rem 1.2rem;
+        background: #063a0c;
+        border-radius: 10px;
+      }
     }
   }
 `;

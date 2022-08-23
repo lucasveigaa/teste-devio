@@ -1,5 +1,6 @@
 import Modal from 'react-modal';
-import { Home } from './pages/Home';
+import { BrowserRouter } from 'react-router-dom';
+import { Router } from './Router';
 import { GlobalStyle } from './styles/global';
 
 Modal.setAppElement('#root');
@@ -7,8 +8,10 @@ Modal.setAppElement('#root');
 function App() {
   return (
     <div>
-      <Home />
-      <GlobalStyle />
+      <BrowserRouter>
+        <Router />
+        <GlobalStyle />
+      </BrowserRouter>
     </div>
   );
 }

@@ -1,21 +1,22 @@
 import { FaHamburger } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 import { Container, SubContainer } from './styles';
 
 export function Header() {
   return (
     <Container>
       <SubContainer>
-        <div>
+        <Link to="/">
           <FaHamburger />
           <strong>fastfood</strong>
-        </div>
-        <div>
+        </Link>
+        <nav>
           <a className="isOnThispage" href="/">
             Pedidos
           </a>
           <a href="/">Cozinha</a>
           <a href="/">Retirada</a>
-        </div>
+        </nav>
       </SubContainer>
     </Container>
   );
