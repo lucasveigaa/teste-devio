@@ -1,5 +1,4 @@
 import { FaMinus, FaPlus } from 'react-icons/fa';
-import imgHamburguer from '../../assets/category-hamburguer.png';
 import {
   Container,
   ContainerDescriptionItem,
@@ -7,28 +6,51 @@ import {
   SubContainer,
 } from './styled';
 
-export function CardProdctModal() {
+interface CardProductModalProps {
+  amountProduct: number;
+  setAmountProduct: React.Dispatch<React.SetStateAction<number>>;
+  image: string;
+  description: string;
+  price: number;
+  title: string;
+}
+
+export function CardProductModal({
+  amountProduct,
+  setAmountProduct,
+  image,
+  description,
+  price,
+  title,
+}: CardProductModalProps) {
+  function handleDecreaseAmount() {
+    if (amountProduct > 1) {
+      setAmountProduct(amountProduct - 1);
+    }
+  }
+
+  function handleIncreaseAmount() {
+    setAmountProduct(amountProduct + 1);
+  }
+
   return (
     <Container>
-      <img src={imgHamburguer} alt="Imagem de um hamburger" />
+      <img src={image} alt="Imagem de um hamburger" />
       <SubContainer>
         <ContainerDescriptionItem>
-          <strong>Smash da casa</strong>
-          <p>
-            2x hambúrguer 200g, queijo cheddar, tomate, alface, picles, cebola e
-            molho da casa
-          </p>
+          <strong>{title}</strong>
+          <p>{description}</p>
           <div>
-            <button type="button">
+            <button onClick={handleDecreaseAmount} type="button">
               <FaMinus />
             </button>
-            <span>1</span>
-            <button type="button">
+            <span>{amountProduct}</span>
+            <button onClick={handleIncreaseAmount} type="button">
               <FaPlus />
             </button>
           </div>
         </ContainerDescriptionItem>
-        <ItemValue>R$30,50</ItemValue>
+        <ItemValue>R${price}</ItemValue>
       </SubContainer>
     </Container>
   );

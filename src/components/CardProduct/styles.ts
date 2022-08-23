@@ -9,6 +9,10 @@ export const Container = styled.div`
   padding-bottom: 1rem;
   border-radius: 10px;
 
+  &:hover {
+    cursor: pointer;
+  }
+
   @media (max-width: 768px) {
     width: 150px;
   }

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import categoryDesserts from '../../assets/category-desserts.png';
 import categoryDrinks from '../../assets/category-drinks.png';
 import categoryHamburguer from '../../assets/category-hamburguer.png';
@@ -6,7 +6,9 @@ import categorySideDishes from '../../assets/category-side-dishes.png';
 import { CardItemCategory } from '../../components/CardItemCategory';
 import { CardProduct } from '../../components/CardProduct';
 import { ModalRequest } from '../../components/ModalRequest';
+import { CartContext } from '../../contexts/CartContext';
 import { Products } from '../../services/products';
+import { TypeProduct } from '../../types';
 import {
   CancelButton,
   Container,
@@ -23,10 +25,16 @@ import {
 
 export function Home() {
   const [modalIsOpen, setModalisOpen] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState({} as TypeProduct);
+  const { cart } = useContext(CartContext);
 
   return (
     <>
-      <ModalRequest modalIsOpen={modalIsOpen} setModalisOpen={setModalisOpen} />
+      <ModalRequest
+        selectedProduct={selectedProduct}
+        modalIsOpen={modalIsOpen}
+        setModalisOpen={setModalisOpen}
+      />
       <Container>
         <div>
           <h1>Seja bem vindo!</h1>
@@ -51,7 +59,10 @@ export function Home() {
           <SubContainerProducts>
             {Products.map(product => (
               <CardProduct
+                setModalisOpen={setModalisOpen}
                 key={product.id}
+                setSelectedProduct={setSelectedProduct}
+                id={product.id}
                 image={product.image}
                 title={product.title}
                 description={product.description}
@@ -61,13 +72,15 @@ export function Home() {
           </SubContainerProducts>
         </ContainerProducts>
         <ContainerRequests>
-          <Requests>
-            <div>
-              <span className="amount">1x</span>
-              <span>Smash da casa</span>
-            </div>
-            <span>R$ 30,50</span>
-          </Requests>
+          {cart.map(item => (
+            <Requests key={item.id}>
+              <div>
+                <span className="amount">{item.amountProduct}x</span>
+                <span>{item.title}</span>
+              </div>
+              <span>R$ {item.price}</span>
+            </Requests>
+          ))}
           <ContainerTotalAmount>
             <span>Total do pedido:</span>
             <strong>R$ 30,50</strong>

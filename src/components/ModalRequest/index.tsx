@@ -1,10 +1,13 @@
+import { useContext, useEffect, useState } from 'react';
 import Modal from 'react-modal';
 import baconImg from '../../assets/bacon.png';
 import cheedarImg from '../../assets/cheese.png';
 import closeIcon from '../../assets/close-icon.svg';
 import molhobbqImg from '../../assets/molhobbq.png';
+import { CartContext } from '../../contexts/CartContext';
+import { ProductProps, TypeProduct } from '../../types';
 import { CardAdditionalIngredient } from '../CardAdditionalIngredient';
-import { CardProdctModal } from '../CardProductModal';
+import { CardProductModal } from '../CardProductModal';
 import {
   ButtonFinalizeRequest,
   ContainerButtons,
@@ -19,15 +22,32 @@ import {
 interface ModalRequestProps {
   modalIsOpen: boolean;
   setModalisOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  selectedProduct: TypeProduct;
 }
 
 export function ModalRequest({
   modalIsOpen,
   setModalisOpen,
+  selectedProduct,
 }: ModalRequestProps) {
+  const { description, id, image, price, title } = selectedProduct;
+  const [amountProduct, setAmountProduct] = useState(1);
+  const [productToCart, setProductToCart] = useState({} as ProductProps);
+  const { addToCart } = useContext(CartContext);
+
+  useEffect(() => {
+    setProductToCart({ description, id, image, price, title, amountProduct });
+  }, [amountProduct]);
+
   function closeModal() {
     setModalisOpen(false);
   }
+
+  function handleAddToCart(product: ProductProps) {
+    addToCart(product);
+    closeModal();
+  }
+
   return (
     <Modal
       overlayClassName="react-modal-overlay"
@@ -44,7 +64,14 @@ export function ModalRequest({
           <img src={closeIcon} alt="Botão para fechar o modal" />
         </button>
         <h1>Revise seu pedido!</h1>
-        <CardProdctModal />
+        <CardProductModal
+          amountProduct={amountProduct}
+          setAmountProduct={setAmountProduct}
+          image={image}
+          description={description}
+          title={title}
+          price={price}
+        />
         <TextStrong>Adicionais</TextStrong>
         <ExplicationText>
           Selecione os ingredientes que você quer adicionar a mais no seu
@@ -87,7 +114,11 @@ export function ModalRequest({
           <ButtonFinalizeRequest variant="white" type="button">
             Continuar adicionando
           </ButtonFinalizeRequest>
-          <ButtonFinalizeRequest variant="green" type="button">
+          <ButtonFinalizeRequest
+            variant="green"
+            type="button"
+            onClick={() => handleAddToCart(productToCart)}
+          >
             Adicionar ao pedido
           </ButtonFinalizeRequest>
         </ContainerButtons>

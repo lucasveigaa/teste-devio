@@ -1,3 +1,4 @@
+import { TypeProduct } from '../../types';
 import { BackgroundColor, Container } from './styles';
 
 interface CardProductProps {
@@ -5,6 +6,9 @@ interface CardProductProps {
   title: string;
   description: string;
   price: number;
+  id: number;
+  setSelectedProduct: React.Dispatch<React.SetStateAction<TypeProduct>>;
+  setModalisOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export function CardProduct({
@@ -12,9 +16,18 @@ export function CardProduct({
   title,
   description,
   price,
+  id,
+  setSelectedProduct,
+  setModalisOpen,
 }: CardProductProps) {
+  function handleProduct() {
+    const product = { id, image, title, description, price };
+    setSelectedProduct(product);
+    setModalisOpen(true);
+  }
+
   return (
-    <Container>
+    <Container onClick={() => handleProduct()}>
       <BackgroundColor />
       <img src={image} alt="Hamburguer" />
       <strong>{title}</strong>

@@ -69,7 +69,7 @@ export const ContainerRequests = styled.div`
   border-radius: 5px;
   border: 1px solid #acacac;
   padding: 1.5rem;
-  margin-top: 1rem;
+  margin-top: 2rem;
 
   @media (max-width: 500px) {
     width: 90%;
