@@ -62,6 +62,46 @@ export const SubContainerProducts = styled.div`
   }
 `;
 
+export const ContainerRequests = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-right: calc(25% - 180px);
+  border-radius: 5px;
+  border: 1px solid #acacac;
+  padding: 1.5rem;
+  margin-top: 1rem;
+
+  @media (max-width: 500px) {
+    width: 90%;
+    margin: 0 auto;
+    margin-top: 1rem;
+  }
+`;
+
+export const Requests = styled.div`
+  padding-bottom: 2rem;
+  display: flex;
+  justify-content: space-between;
+
+  .amount {
+    margin-right: 0.5rem;
+  }
+`;
+
+export const ContainerTotalAmount = styled.div`
+  border-top: 2px dotted #acacac;
+  padding-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+
+  strong {
+    font-size: 1.8rem;
+    margin-top: 0.5rem;
+  }
+`;
+
 export const ContainerButtons = styled.div`
   margin-top: 3rem;
   gap: 2rem;

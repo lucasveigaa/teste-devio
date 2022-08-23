@@ -13,8 +13,11 @@ import {
   ContainerButtons,
   ContainerCategories,
   ContainerProducts,
+  ContainerRequests,
+  ContainerTotalAmount,
   DivItensCategories,
   FinalizeButton,
+  Requests,
   SubContainerProducts,
 } from './styles';
 
@@ -57,6 +60,19 @@ export function Home() {
             ))}
           </SubContainerProducts>
         </ContainerProducts>
+        <ContainerRequests>
+          <Requests>
+            <div>
+              <span className="amount">1x</span>
+              <span>Smash da casa</span>
+            </div>
+            <span>R$ 30,50</span>
+          </Requests>
+          <ContainerTotalAmount>
+            <span>Total do pedido:</span>
+            <strong>R$ 30,50</strong>
+          </ContainerTotalAmount>
+        </ContainerRequests>
         <ContainerButtons>
           <div>
             <CancelButton type="button">Cancelar</CancelButton>
