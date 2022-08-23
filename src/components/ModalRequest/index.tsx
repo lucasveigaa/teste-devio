@@ -33,11 +33,20 @@ export function ModalRequest({
   const { description, id, image, price, title } = selectedProduct;
   const [amountProduct, setAmountProduct] = useState(1);
   const [productToCart, setProductToCart] = useState({} as ProductProps);
+  const [observations, setObservations] = useState('');
   const { addToCart } = useContext(CartContext);
 
   useEffect(() => {
-    setProductToCart({ description, id, image, price, title, amountProduct });
-  }, [amountProduct]);
+    setProductToCart({
+      description,
+      id,
+      image,
+      price,
+      title,
+      amountProduct,
+      observations,
+    });
+  }, [amountProduct, observations]);
 
   function closeModal() {
     setModalisOpen(false);
@@ -47,6 +56,7 @@ export function ModalRequest({
     addToCart(product);
     closeModal();
     setAmountProduct(1);
+    setObservations('');
   }
 
   return (
@@ -97,7 +107,11 @@ export function ModalRequest({
           description="Barbecue"
         />
         <TextStrong>Observações</TextStrong>
-        <TextAreaObservations placeholder="Adicione uma observação ao pedido" />
+        <TextAreaObservations
+          value={observations}
+          onChange={e => setObservations(e.target.value)}
+          placeholder="Adicione uma observação ao pedido"
+        />
         <ContainerFinalizingOrder>
           <SubContainerFinalizingOrder>
             <div>

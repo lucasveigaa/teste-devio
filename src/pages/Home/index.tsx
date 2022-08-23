@@ -20,6 +20,7 @@ import {
   ContainerTotalAmount,
   DivItensCategories,
   FinalizeButton,
+  ObservationText,
   Requests,
   SubContainerProducts,
 } from './styles';
@@ -80,13 +81,18 @@ export function Home() {
         {!!cart.length && (
           <ContainerRequests>
             {cart.map(item => (
-              <Requests key={item.id}>
-                <div>
-                  <span className="amount">{item.amountProduct}x</span>
-                  <span>{item.title}</span>
-                </div>
-                <span>R$ {item.price * item.amountProduct}</span>
-              </Requests>
+              <div key={item.id}>
+                <Requests>
+                  <div>
+                    <span className="amount">{item.amountProduct}x</span>
+                    <span>{item.title}</span>
+                  </div>
+                  <span>R$ {item.price * item.amountProduct}</span>
+                </Requests>
+                <ObservationText>
+                  Observações: {item.observations}
+                </ObservationText>
+              </div>
             ))}
             <ContainerTotalAmount>
               <span>Total do pedido:</span>

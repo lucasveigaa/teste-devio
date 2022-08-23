@@ -13,4 +13,5 @@ export interface ProductProps {
   price: number;
   title: string;
   amountProduct: number;
+  observations?: string;
 }

@@ -88,6 +88,12 @@ export const Requests = styled.div`
   }
 `;
 
+export const ObservationText = styled.span`
+  display: block;
+  margin-bottom: 1rem;
+  font-size: 0.75rem;
+`;
+
 export const ContainerTotalAmount = styled.div`
   border-top: 2px dotted #acacac;
   padding-top: 1rem;
