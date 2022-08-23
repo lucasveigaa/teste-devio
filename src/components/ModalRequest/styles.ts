@@ -49,3 +49,39 @@ export const ContainerTotalAmount = styled.div`
     font-size: 1.5rem;
   }
 `;
+
+export const ContainerButtons = styled.div`
+  margin-top: 2rem;
+  display: flex;
+  justify-content: flex-end;
+
+  @media (max-width: 500px) {
+    justify-content: space-between;
+  }
+`;
+
+interface ButtonProps {
+  variant: 'white' | 'green';
+}
+
+export const ButtonFinalizeRequest = styled.button<ButtonProps>`
+  width: 200px;
+  padding: 0.5rem 0;
+  margin-left: 2rem;
+  border-radius: 12px;
+  font-weight: 700;
+  border: 0;
+  color: ${props => (props.variant === 'white' ? '#095812' : '#FFF')};
+  background: ${props => (props.variant === 'white' ? '#FFF' : '#095812')};
+  border: ${props => props.variant === 'white' && '1px solid #095812'};
+
+  @media (max-width: 500px) {
+    margin: 0;
+    width: 150px;
+  }
+
+  &:hover {
+    cursor: pointer;
+    filter: brightness(90%);
+  }
+`;

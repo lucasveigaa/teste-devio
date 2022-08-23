@@ -6,6 +6,8 @@ import molhobbqImg from '../../assets/molhobbq.png';
 import { CardAdditionalIngredient } from '../CardAdditionalIngredient';
 import { CardProdctModal } from '../CardProductModal';
 import {
+  ButtonFinalizeRequest,
+  ContainerButtons,
   ContainerFinalizingOrder,
   ContainerTotalAmount,
   ExplicationText,
@@ -81,6 +83,14 @@ export function ModalRequest({
             <strong>R$30,50</strong>
           </ContainerTotalAmount>
         </ContainerFinalizingOrder>
+        <ContainerButtons>
+          <ButtonFinalizeRequest variant="white" type="button">
+            Continuar adicionando
+          </ButtonFinalizeRequest>
+          <ButtonFinalizeRequest variant="green" type="button">
+            Adicionar ao pedido
+          </ButtonFinalizeRequest>
+        </ContainerButtons>
       </div>
     </Modal>
   );

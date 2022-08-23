@@ -17,6 +17,7 @@ export const GlobalStyle = createGlobalStyle`
     }
 }
 .react-modal-overlay{
+
    z-index: 2;
    background: rgba(0, 0, 0, 0.5);
    position: fixed;
@@ -30,6 +31,7 @@ export const GlobalStyle = createGlobalStyle`
  } 
  
  .react-modal-content {
+  border-radius: 10px;
    width: 100%;
    max-width: 900px;
    background: #fff;
