@@ -1,4 +1,5 @@
 import { useContext, useState } from 'react';
+import { Link } from 'react-router-dom';
 import categoryDesserts from '../../assets/category-desserts.png';
 import categoryDrinks from '../../assets/category-drinks.png';
 import categoryHamburguer from '../../assets/category-hamburguer.png';
@@ -76,7 +77,7 @@ export function Home() {
             ))}
           </SubContainerProducts>
         </ContainerProducts>
-        {cart.length && (
+        {!!cart.length && (
           <ContainerRequests>
             {cart.map(item => (
               <Requests key={item.id}>
@@ -96,9 +97,9 @@ export function Home() {
         <ContainerButtons>
           <div>
             <CancelButton type="button">Cancelar</CancelButton>
-            <FinalizeButton onClick={() => setModalisOpen(true)} type="button">
-              Finalizar pedido
-            </FinalizeButton>
+            <Link to="/checkout">
+              <FinalizeButton type="button">Finalizar pedido</FinalizeButton>
+            </Link>
           </div>
         </ContainerButtons>
       </Container>

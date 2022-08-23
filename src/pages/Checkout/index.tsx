@@ -1,4 +1,6 @@
+import { useContext } from 'react';
 import { FaCreditCard, FaMoneyBillAlt, FaRegCreditCard } from 'react-icons/fa';
+import { CartContext } from '../../contexts/CartContext';
 import {
   ButtonFinalizeCheckout,
   ClienteInfos,
@@ -16,6 +18,13 @@ import {
 } from './styles';
 
 export function Checkout() {
+  const { cart } = useContext(CartContext);
+
+  const totalCartValue = cart.reduce(
+    (acum, item) => acum + item.amountProduct * item.price,
+    0,
+  );
+
   return (
     <Container>
       <h1>
@@ -26,16 +35,18 @@ export function Checkout() {
         <SummaryPayment>
           <strong>Resumo da compra</strong>
           <ContainerRequests>
-            <Requests>
-              <div>
-                <span className="amount">1x</span>
-                <span>Smash da casa</span>
-              </div>
-              <span>R$ 30,50</span>
-            </Requests>
+            {cart.map(item => (
+              <Requests>
+                <div>
+                  <span className="amount">{item.amountProduct}x</span>
+                  <span>{item.title}</span>
+                </div>
+                <span>R$ {item.price * item.amountProduct}</span>
+              </Requests>
+            ))}
             <ContainerTotalAmount>
               <span>Total do pedido:</span>
-              <strong>R$ 30,50</strong>
+              <strong>R$ {totalCartValue}</strong>
             </ContainerTotalAmount>
           </ContainerRequests>
           <ClienteInfos>

@@ -46,6 +46,7 @@ export function ModalRequest({
   function handleAddToCart(product: ProductProps) {
     addToCart(product);
     closeModal();
+    setAmountProduct(1);
   }
 
   return (
