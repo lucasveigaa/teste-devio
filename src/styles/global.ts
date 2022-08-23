@@ -35,7 +35,8 @@ export const GlobalStyle = createGlobalStyle`
    background: #fff;
    padding: 3rem;
    position: relative;
-   border-radius: 10px;
+   overflow-y: auto;
+   max-height: 90%;
  }
  .react-modal-close {
    font-size: 1rem;
