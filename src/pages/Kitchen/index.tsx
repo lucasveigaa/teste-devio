@@ -1,6 +1,5 @@
 import { useContext } from 'react';
 import { FaCheck } from 'react-icons/fa';
-import { CartContext } from '../../contexts/CartContext';
 import { RequestsContext } from '../../contexts/RequestsContext';
 
 import {
@@ -16,9 +15,14 @@ import {
 } from './styles';
 
 export function Kitchen() {
-  const { cart, client } = useContext(CartContext);
-  const { requests, removeRequest } = useContext(RequestsContext);
-  console.log(requests);
+  const {
+    requests,
+    removeRequest,
+    addReadyRequests,
+    readyRequests,
+    removeReadyRequest,
+  } = useContext(RequestsContext);
+  console.log(readyRequests);
 
   return (
     <Container>
@@ -53,41 +57,52 @@ export function Kitchen() {
               >
                 x
               </Button>
-              <Button variant="green" type="button">
+              <Button
+                onClick={() => addReadyRequests(req)}
+                variant="green"
+                type="button"
+              >
                 <FaCheck size={8} />
               </Button>
             </ContainerButtons>
           </ContainerRequest>
         ))}
       </Preparing>
+
       <Ready>
         <h2>Pronto:</h2>
-        <ContainerRequest>
-          <SubContainerRequest>
-            <strong>Cliente: {client}</strong>
-            {cart.map(item => (
-              <Request key={item.id}>
-                <InformationRequest>
-                  <span>
-                    {item.amountProduct}x {item.title}
-                  </span>
-                  {item.observations && (
-                    <span>Observações: {item.observations}</span>
-                  )}
-                  <span>Adicionais:</span>
-                  {item.additional.map(add => (
-                    <span key={add.title}>{add.title}</span>
-                  ))}
-                </InformationRequest>
-              </Request>
-            ))}
-          </SubContainerRequest>
-          <ContainerButtons>
-            <Button variant="red" type="button">
-              x
-            </Button>
-          </ContainerButtons>
-        </ContainerRequest>
+        {readyRequests.map(req => (
+          <ContainerRequest>
+            <SubContainerRequest>
+              <strong>Cliente: {req.client}</strong>
+              {req.cart.map(item => (
+                <Request key={item.id}>
+                  <InformationRequest>
+                    <span>
+                      {item.amountProduct}x {item.title}
+                    </span>
+                    {item.observations && (
+                      <span>Observações: {item.observations}</span>
+                    )}
+                    <span>Adicionais:</span>
+                    {item.additional.map(add => (
+                      <span key={add.title}>{add.title}</span>
+                    ))}
+                  </InformationRequest>
+                </Request>
+              ))}
+            </SubContainerRequest>
+            <ContainerButtons>
+              <Button
+                onClick={() => removeReadyRequest(req)}
+                variant="red"
+                type="button"
+              >
+                x
+              </Button>
+            </ContainerButtons>
+          </ContainerRequest>
+        ))}
       </Ready>
     </Container>
   );
