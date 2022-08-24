@@ -38,8 +38,6 @@ export function Checkout() {
   const [deliveredValue, setDeliveredValue] = useState(0);
   const navigate = useNavigate();
 
-  console.log(requests);
-
   const totalCartItensValue = cart.reduce(
     (acum, item) => acum + item.sumTotalProduct,
     0,

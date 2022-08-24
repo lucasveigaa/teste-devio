@@ -1,6 +1,7 @@
 import { useContext } from 'react';
 import { FaCheck } from 'react-icons/fa';
 import { CartContext } from '../../contexts/CartContext';
+import { RequestsContext } from '../../contexts/RequestsContext';
 
 import {
   Button,
@@ -16,40 +17,48 @@ import {
 
 export function Kitchen() {
   const { cart, client } = useContext(CartContext);
+  const { requests, removeRequest } = useContext(RequestsContext);
+  console.log(requests);
 
   return (
     <Container>
       <Preparing>
         <h2>Preparando:</h2>
-        <ContainerRequest>
-          <SubContainerRequest>
-            <strong>Cliente: {client}</strong>
-            {cart.map(item => (
-              <Request key={item.id}>
-                <InformationRequest>
-                  <span>
-                    {item.amountProduct}x {item.title}
-                  </span>
-                  {item.observations && (
-                    <span>Observações: {item.observations}</span>
-                  )}
-                  <span>Adicionais:</span>
-                  {item.additional.map(add => (
-                    <span key={add.title}>{add.title}</span>
-                  ))}
-                </InformationRequest>
-              </Request>
-            ))}
-          </SubContainerRequest>
-          <ContainerButtons>
-            <Button variant="red" type="button">
-              x
-            </Button>
-            <Button variant="green" type="button">
-              <FaCheck size={8} />
-            </Button>
-          </ContainerButtons>
-        </ContainerRequest>
+        {requests.map(req => (
+          <ContainerRequest>
+            <SubContainerRequest>
+              <strong>Cliente: {req.client}</strong>
+              {req.cart.map(item => (
+                <Request key={item.id}>
+                  <InformationRequest>
+                    <span>
+                      {item.amountProduct}x {item.title}
+                    </span>
+                    {item.observations && (
+                      <span>Observações: {item.observations}</span>
+                    )}
+                    <span>Adicionais:</span>
+                    {item.additional.map(add => (
+                      <span key={add.title}>{add.title}</span>
+                    ))}
+                  </InformationRequest>
+                </Request>
+              ))}
+            </SubContainerRequest>
+            <ContainerButtons>
+              <Button
+                onClick={() => removeRequest(req)}
+                variant="red"
+                type="button"
+              >
+                x
+              </Button>
+              <Button variant="green" type="button">
+                <FaCheck size={8} />
+              </Button>
+            </ContainerButtons>
+          </ContainerRequest>
+        ))}
       </Preparing>
       <Ready>
         <h2>Pronto:</h2>
