@@ -32,12 +32,20 @@ import {
 export function Home() {
   const [modalIsOpen, setModalisOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState({} as TypeProduct);
+  const [searchText, setSearchText] = useState('');
   const { cart, cleanCart, removeItemCart } = useContext(CartContext);
 
   const totalCartItensValue = cart.reduce(
     (acum, item) => acum + item.sumTotalProduct,
     0,
   );
+
+  const filteredProducts = Products.filter(product =>
+    product.title.toLowerCase().startsWith(searchText),
+  );
+
+  const arrayOfProducts =
+    filteredProducts.length > 0 ? filteredProducts : Products;
 
   return (
     <>
@@ -49,7 +57,11 @@ export function Home() {
       <Container>
         <div>
           <h1>Seja bem vindo!</h1>
-          <input placeholder="O que você procura?" type="text" />
+          <input
+            onChange={e => setSearchText(e.target.value)}
+            placeholder="O que você procura?"
+            type="text"
+          />
         </div>
         <ContainerCategories>
           <h4>Categorias</h4>
@@ -68,7 +80,7 @@ export function Home() {
           <h4>Produtos</h4>
           <span>Selecione um produto para adicionar ao seu pedido</span>
           <SubContainerProducts>
-            {Products.map(product => (
+            {arrayOfProducts.map(product => (
               <CardProduct
                 setModalisOpen={setModalisOpen}
                 key={product.id}
