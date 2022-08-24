@@ -45,8 +45,6 @@ export function Home() {
   );
   const { cart, cleanCart, removeItemCart } = useContext(CartContext);
 
-  console.log(activeCategory);
-
   useEffect(() => {
     function activeProduct(typeCategory: string) {
       if (typeCategory === 'Hambúrguer') {
@@ -121,8 +119,9 @@ export function Home() {
           <h4>Produtos</h4>
           <span>Selecione um produto para adicionar ao seu pedido</span>
           <SubContainerProducts>
-            {arrayOfProducts.map(product => (
+            {arrayOfProducts.map((product, index) => (
               <CardProduct
+                index={index}
                 setModalisOpen={setModalisOpen}
                 key={product.id}
                 setSelectedProduct={setSelectedProduct}

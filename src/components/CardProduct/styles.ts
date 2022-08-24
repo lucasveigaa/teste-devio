@@ -36,13 +36,20 @@ export const Container = styled.div`
   }
 `;
 
-export const BackgroundColor = styled.div`
+interface TypeBackgroundColor {
+  index: number;
+}
+
+export const BackgroundColor = styled.div<TypeBackgroundColor>`
   position: absolute;
-  background: red;
   height: 70px;
   width: 180px;
   border-top-right-radius: 10px;
   border-top-left-radius: 10px;
+
+  background: ${props => props.index <= 3 && 'red'};
+  background: ${props => props.index > 3 && props.index <= 7 && 'blue'};
+  background: ${props => props.index > 7 && props.index <= 11 && 'green'};
 
   @media (max-width: 700px) {
     width: 150px;

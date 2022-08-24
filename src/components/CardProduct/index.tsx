@@ -8,6 +8,7 @@ interface CardProductProps {
   description: string;
   price: number;
   id: number;
+  index: number;
   setSelectedProduct: React.Dispatch<React.SetStateAction<TypeProduct>>;
   setModalisOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
@@ -18,6 +19,7 @@ export function CardProduct({
   description,
   price,
   id,
+  index,
   setSelectedProduct,
   setModalisOpen,
 }: CardProductProps) {
@@ -29,7 +31,7 @@ export function CardProduct({
 
   return (
     <Container onClick={() => handleProduct()}>
-      <BackgroundColor />
+      <BackgroundColor index={index} />
       <img src={image} alt="Hamburguer" />
       <strong>{title}</strong>
       <span>{description}</span>
