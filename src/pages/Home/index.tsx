@@ -132,14 +132,12 @@ export function Home() {
           </ContainerRequests>
         )}
         <ContainerButtons>
-          <div>
-            <CancelButton onClick={() => cleanCart()} type="button">
-              Cancelar
-            </CancelButton>
-            <Link to="/checkout">
-              <FinalizeButton type="button">Finalizar pedido</FinalizeButton>
-            </Link>
-          </div>
+          <CancelButton onClick={() => cleanCart()} type="button">
+            Cancelar
+          </CancelButton>
+          <Link to="/checkout">
+            <FinalizeButton type="button">Finalizar pedido</FinalizeButton>
+          </Link>
         </ContainerButtons>
       </Container>
     </>

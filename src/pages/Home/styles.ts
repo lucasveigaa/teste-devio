@@ -6,6 +6,10 @@ export const Container = styled.div`
   margin: 0 auto;
   margin-top: 3rem;
 
+  @media (max-width: 700px) {
+    max-width: 90%;
+  }
+
   input {
     margin-top: 1rem;
     background: #f4f1f1;
@@ -59,6 +63,7 @@ export const SubContainerProducts = styled.div`
 
   @media (max-width: 700px) {
     grid-template-columns: repeat(2, 1fr);
+    justify-items: center;
   }
 `;
 
@@ -71,8 +76,8 @@ export const ContainerRequests = styled.div`
   padding: 2rem;
   margin-top: 2rem;
 
-  @media (max-width: 500px) {
-    width: 90%;
+  @media (max-width: 700px) {
+    max-width: 90%;
     margin: 0 auto;
     margin-top: 1rem;
   }
@@ -141,13 +146,18 @@ export const ContainerTotalAmount = styled.div`
 
 export const ContainerButtons = styled.div`
   margin-top: 3rem;
-  gap: 2rem;
+  gap: 0.5rem;
   display: flex;
   justify-content: flex-end;
   margin-right: calc(25% - 180px);
+  width: 100%;
+  margin-bottom: 1rem;
 
-  @media (max-width: 500px) {
+  @media (max-width: 700px) {
     flex-direction: column;
+    max-width: 90%;
+    margin: 0 auto;
+    margin-top: 3rem;
   }
 `;
 
