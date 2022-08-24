@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { ChangeEvent, useContext, useState } from 'react';
 import { FaCreditCard, FaMoneyBillAlt, FaRegCreditCard } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { CartContext } from '../../contexts/CartContext';
@@ -22,13 +22,31 @@ import {
 } from './styles';
 
 export function Checkout() {
-  const { cart, cleanCart, addClient } = useContext(CartContext);
+  const {
+    cart,
+    cleanCart,
+    addClient,
+    addPaymentForm,
+    setChangeValue,
+    changeValue,
+  } = useContext(CartContext);
+  const [deliveredValue, setDeliveredValue] = useState(0);
 
   const totalCartItensValue = cart.reduce(
     (acum, item) => acum + item.sumTotalProduct,
     0,
   );
 
+  function handlePayment(e: ChangeEvent<HTMLInputElement>) {
+    addPaymentForm(e.target.value);
+  }
+
+  const handleChangeValue =
+    deliveredValue > totalCartItensValue
+      ? deliveredValue - totalCartItensValue
+      : 0;
+
+  setChangeValue(handleChangeValue);
   return (
     <Container>
       <h1>
@@ -90,29 +108,51 @@ export function Checkout() {
               <FaRegCreditCard color="#095812" />
               Débito
             </strong>
-            <input name="paymentmethod" id="debit" type="radio" />
+            <input
+              onChange={e => handlePayment(e)}
+              name="paymentmethod"
+              id="debit"
+              type="radio"
+              value="Débito"
+            />
           </PaymentForm>
           <PaymentForm>
             <strong>
               <FaCreditCard color="#095812" />
               Crédito
             </strong>
-            <input name="paymentmethod" id="credit" type="radio" />
+            <input
+              onChange={e => handlePayment(e)}
+              name="paymentmethod"
+              id="credit"
+              type="radio"
+              value="Crédito"
+            />
           </PaymentForm>
           <PaymentForm>
             <strong>
               <FaMoneyBillAlt color="#095812" /> Dinheiro
             </strong>
-            <input name="paymentmethod" id="cash" type="radio" />
+            <input
+              onChange={e => handlePayment(e)}
+              name="paymentmethod"
+              id="cash"
+              type="radio"
+              value="Dinheiro"
+            />
           </PaymentForm>
           <ContainerChangeValue>
             <div>
               <strong> Valor entregue</strong>
-              <input type="text" id="deliveredvalue" />
+              <input
+                onChange={e => setDeliveredValue(Number(e.target.value))}
+                type="text"
+                id="deliveredvalue"
+              />
             </div>
             <div>
               <strong>Troco</strong>
-              <input type="text" id="changevalue" />
+              <input value={changeValue} type="text" id="changevalue" />
             </div>
           </ContainerChangeValue>
         </ContainerPaymentForm>

@@ -21,5 +21,4 @@ export interface ProductProps {
   observations: string;
   additional: AdditionalProps[];
   sumTotalProduct: number;
-  client?: string;
 }

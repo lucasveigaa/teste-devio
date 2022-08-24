@@ -7,6 +7,10 @@ interface CartContextType {
   cleanCart: () => void;
   client: string;
   addClient: (name: string) => void;
+  addPaymentForm: (form: string) => void;
+  paymentForm: string;
+  setChangeValue: React.Dispatch<React.SetStateAction<number>>;
+  changeValue: number;
 }
 
 export const CartContext = createContext({} as CartContextType);
@@ -14,6 +18,8 @@ export const CartContext = createContext({} as CartContextType);
 export function CartProvider({ children }: PropsWithChildren) {
   const [cart, setCart] = useState<ProductProps[]>([]);
   const [client, setClient] = useState('');
+  const [paymentForm, setPaymentForm] = useState('');
+  const [changeValue, setChangeValue] = useState(0);
 
   function addToCart(product: ProductProps) {
     setCart([...cart, product]);
@@ -27,9 +33,23 @@ export function CartProvider({ children }: PropsWithChildren) {
     setCart([]);
   }
 
+  function addPaymentForm(form: string) {
+    setPaymentForm(form);
+  }
+
   return (
     <CartContext.Provider
-      value={{ addToCart, cart, cleanCart, addClient, client }}
+      value={{
+        addToCart,
+        cart,
+        cleanCart,
+        addClient,
+        client,
+        addPaymentForm,
+        paymentForm,
+        setChangeValue,
+        changeValue,
+      }}
     >
       {children}
     </CartContext.Provider>
