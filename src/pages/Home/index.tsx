@@ -13,6 +13,7 @@ import { TypeProduct } from '../../types';
 import {
   CancelButton,
   Container,
+  ContainerAdditionalItens,
   ContainerButtons,
   ContainerCategories,
   ContainerProducts,
@@ -23,17 +24,21 @@ import {
   ObservationText,
   Requests,
   SubContainerProducts,
+  SubContainerRequests,
 } from './styles';
 
 export function Home() {
   const [modalIsOpen, setModalisOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState({} as TypeProduct);
+  const [totalAdditionalValue, setTotalAdditionalValue] = useState(0);
   const { cart } = useContext(CartContext);
 
-  const totalCartValue = cart.reduce(
+  const totalCartItensValue = cart.reduce(
     (acum, item) => acum + item.amountProduct * item.price,
     0,
   );
+
+  const sumTotalCartValue = totalCartItensValue + totalAdditionalValue;
 
   return (
     <>
@@ -41,6 +46,7 @@ export function Home() {
         selectedProduct={selectedProduct}
         modalIsOpen={modalIsOpen}
         setModalisOpen={setModalisOpen}
+        setTotalAdditionalValue={setTotalAdditionalValue}
       />
       <Container>
         <div>
@@ -81,7 +87,7 @@ export function Home() {
         {!!cart.length && (
           <ContainerRequests>
             {cart.map(item => (
-              <div key={item.id}>
+              <SubContainerRequests key={item.id}>
                 <Requests>
                   <div>
                     <span className="amount">{item.amountProduct}x</span>
@@ -89,14 +95,23 @@ export function Home() {
                   </div>
                   <span>R$ {item.price * item.amountProduct}</span>
                 </Requests>
-                <ObservationText>
-                  Observações: {item.observations}
-                </ObservationText>
-              </div>
+                {!!item.observations && (
+                  <ObservationText>
+                    Observações: {item.observations}
+                  </ObservationText>
+                )}
+                {!!item.additional &&
+                  item.additional.map(add => (
+                    <ContainerAdditionalItens>
+                      <span>{add.title}</span>
+                      <span>R$ {add.value}</span>
+                    </ContainerAdditionalItens>
+                  ))}
+              </SubContainerRequests>
             ))}
             <ContainerTotalAmount>
               <span>Total do pedido:</span>
-              <strong>R$ {totalCartValue}</strong>
+              <strong>R$ {sumTotalCartValue}</strong>
             </ContainerTotalAmount>
           </ContainerRequests>
         )}

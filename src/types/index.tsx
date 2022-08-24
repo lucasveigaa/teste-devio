@@ -6,6 +6,11 @@ export interface TypeProduct {
   price: number;
 }
 
+export interface AdditionalProps {
+  title?: string;
+  value?: number;
+}
+
 export interface ProductProps {
   description: string;
   id: number;
@@ -14,4 +19,5 @@ export interface ProductProps {
   title: string;
   amountProduct: number;
   observations?: string;
+  additional: AdditionalProps[];
 }

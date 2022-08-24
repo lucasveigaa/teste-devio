@@ -78,8 +78,12 @@ export const ContainerRequests = styled.div`
   }
 `;
 
+export const SubContainerRequests = styled.div`
+  margin-bottom: 2rem;
+`;
+
 export const Requests = styled.div`
-  padding-bottom: 2rem;
+  padding-bottom: 0.5rem;
   display: flex;
   justify-content: space-between;
 
@@ -90,8 +94,17 @@ export const Requests = styled.div`
 
 export const ObservationText = styled.span`
   display: block;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5arem;
   font-size: 0.75rem;
+`;
+
+export const ContainerAdditionalItens = styled.div`
+  display: flex;
+  justify-content: space-between;
+
+  span {
+    font-size: 0.75rem;
+  }
 `;
 
 export const ContainerTotalAmount = styled.div`

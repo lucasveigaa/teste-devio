@@ -1,3 +1,5 @@
+import { ChangeEvent } from 'react';
+import { AdditionalProps } from '../../types';
 import { Container, SubContainer } from './styles';
 
 interface CardAdditionalIngredientProps {
@@ -5,6 +7,8 @@ interface CardAdditionalIngredientProps {
   description: string;
   value: number;
   title: string;
+  additional: AdditionalProps[];
+  setAdditional: React.Dispatch<React.SetStateAction<AdditionalProps[]>>;
 }
 
 export function CardAdditionalIngredient({
@@ -12,7 +16,22 @@ export function CardAdditionalIngredient({
   description,
   value,
   title,
+  additional,
+  setAdditional,
 }: CardAdditionalIngredientProps) {
+  function handleCheckbox(e: ChangeEvent<HTMLInputElement>) {
+    const inputvalue = e.target.value;
+    const inputChecked = e.target.checked;
+
+    const filteredArray = additional.filter(item => item.title !== inputvalue);
+
+    if (inputChecked) {
+      setAdditional([...additional, { title: inputvalue, value }]);
+      return;
+    }
+    setAdditional(filteredArray);
+  }
+
   return (
     <Container>
       <img src={image} alt="Imagem de um bacon" />
@@ -23,7 +42,7 @@ export function CardAdditionalIngredient({
         </div>
         <span>R${value}</span>
       </SubContainer>
-      <input type="checkbox" />
+      <input value={title} onChange={e => handleCheckbox(e)} type="checkbox" />
     </Container>
   );
 }

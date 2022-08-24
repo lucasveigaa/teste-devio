@@ -35,14 +35,22 @@ export const ContainerFinalizingOrder = styled.div`
 export const SubContainerFinalizingOrder = styled.div`
   display: flex;
   justify-content: space-between;
-  border-bottom: 2px dotted #acacac;
-  padding-bottom: 3rem;
+  margin-bottom: 1rem;
+`;
+
+export const ContainerAdditionals = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.5rem;
+  font-size: 0.75rem;
 `;
 
 export const ContainerTotalAmount = styled.div`
+  border-top: 2px dotted #acacac;
   display: flex;
   flex-direction: column;
   margin-top: 1rem;
+  padding-top: 1rem;
 
   strong {
     padding-top: 1rem;

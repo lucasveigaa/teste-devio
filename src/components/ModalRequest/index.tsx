@@ -5,11 +5,12 @@ import cheedarImg from '../../assets/cheese.png';
 import closeIcon from '../../assets/close-icon.svg';
 import molhobbqImg from '../../assets/molhobbq.png';
 import { CartContext } from '../../contexts/CartContext';
-import { ProductProps, TypeProduct } from '../../types';
+import { AdditionalProps, ProductProps, TypeProduct } from '../../types';
 import { CardAdditionalIngredient } from '../CardAdditionalIngredient';
 import { CardProductModal } from '../CardProductModal';
 import {
   ButtonFinalizeRequest,
+  ContainerAdditionals,
   ContainerButtons,
   ContainerFinalizingOrder,
   ContainerTotalAmount,
@@ -23,17 +24,21 @@ interface ModalRequestProps {
   modalIsOpen: boolean;
   setModalisOpen: React.Dispatch<React.SetStateAction<boolean>>;
   selectedProduct: TypeProduct;
+  setTotalAdditionalValue: React.Dispatch<React.SetStateAction<number>>;
 }
 
 export function ModalRequest({
   modalIsOpen,
   setModalisOpen,
   selectedProduct,
+  setTotalAdditionalValue,
 }: ModalRequestProps) {
   const { description, id, image, price, title } = selectedProduct;
   const [amountProduct, setAmountProduct] = useState(1);
   const [productToCart, setProductToCart] = useState({} as ProductProps);
   const [observations, setObservations] = useState('');
+  const [additional, setAdditional] = useState<AdditionalProps[]>([]);
+
   const { addToCart } = useContext(CartContext);
 
   useEffect(() => {
@@ -45,19 +50,33 @@ export function ModalRequest({
       title,
       amountProduct,
       observations,
+      additional,
     });
-  }, [amountProduct, observations]);
+  }, [amountProduct, observations, additional]);
 
   function closeModal() {
     setModalisOpen(false);
+    setAmountProduct(1);
+    setObservations('');
+    setAdditional([]);
   }
+  const sumAdditionalValues = additional.reduce((acum, add) => {
+    if (add.value !== undefined) {
+      return acum + add.value;
+    }
+    return acum;
+  }, 0);
 
   function handleAddToCart(product: ProductProps) {
     addToCart(product);
     closeModal();
     setAmountProduct(1);
     setObservations('');
+    setAdditional([]);
+    setTotalAdditionalValue(sumAdditionalValues);
   }
+
+  const sumTotalCart = amountProduct * price + sumAdditionalValues;
 
   return (
     <Modal
@@ -89,21 +108,27 @@ export function ModalRequest({
           lanche.
         </ExplicationText>
         <CardAdditionalIngredient
+          additional={additional}
+          setAdditional={setAdditional}
           image={baconImg}
           title="Bacon"
-          value={1.0}
+          value={1}
           description="10g"
         />
         <CardAdditionalIngredient
+          additional={additional}
+          setAdditional={setAdditional}
           image={cheedarImg}
           title="Queijo"
-          value={1.0}
+          value={1}
           description="10g"
         />
         <CardAdditionalIngredient
+          additional={additional}
+          setAdditional={setAdditional}
           image={molhobbqImg}
           title="Molho acompanhamento"
-          value={1.0}
+          value={1}
           description="Barbecue"
         />
         <TextStrong>Observações</TextStrong>
@@ -115,14 +140,23 @@ export function ModalRequest({
         <ContainerFinalizingOrder>
           <SubContainerFinalizingOrder>
             <div>
-              <span>1x</span>
-              <span>Smash da casa</span>
+              <span>{amountProduct}x</span>
+              <span> {title}</span>
             </div>
-            <span>R$30,50</span>
+            <span>R$ {price}</span>
           </SubContainerFinalizingOrder>
+          {!!additional &&
+            additional.map(add => (
+              <ContainerAdditionals>
+                <div>
+                  <span> {add.title}</span>
+                </div>
+                <span>R$ {add.value}</span>
+              </ContainerAdditionals>
+            ))}
           <ContainerTotalAmount>
             <span>Total do pedido:</span>
-            <strong>R$30,50</strong>
+            <strong>R$ {sumTotalCart}</strong>
           </ContainerTotalAmount>
         </ContainerFinalizingOrder>
         <ContainerButtons>
