@@ -59,7 +59,7 @@ export function Checkout() {
       toast.success('Pedido finalizado com sucesso!');
 
       const completedRequest = { cart, client, paymentForm };
-
+      window.print();
       addToRequests(completedRequest);
       navigate('/');
       return;
