@@ -25,8 +25,10 @@ export const Container = styled.div`
 
   span {
     font-size: 0.75rem;
+    text-align: center;
     margin-top: 0.2rem;
     margin-bottom: 1rem;
+    max-width: 90%;
   }
 
   strong {

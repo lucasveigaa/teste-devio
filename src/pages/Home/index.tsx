@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import categoryDesserts from '../../assets/category-desserts.png';
 import categoryDrinks from '../../assets/category-drinks.png';
@@ -9,7 +9,12 @@ import { CardItemCategory } from '../../components/CardItemCategory';
 import { CardProduct } from '../../components/CardProduct';
 import { ModalRequest } from '../../components/ModalRequest';
 import { CartContext } from '../../contexts/CartContext';
-import { Products } from '../../services/products';
+import {
+  Desserts,
+  Drinks,
+  Hamburguers,
+  SideDishes,
+} from '../../services/products';
 import { TypeProduct } from '../../types';
 import { priceFormatter } from '../../utils/formatter';
 import {
@@ -34,19 +39,41 @@ export function Home() {
   const [modalIsOpen, setModalisOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState({} as TypeProduct);
   const [searchText, setSearchText] = useState('');
+  const [activeCategory, setActiveCategory] = useState('Hambúrguer');
+  const [arrayActiveProduct, setArrayActiveProduct] = useState<TypeProduct[]>(
+    [],
+  );
   const { cart, cleanCart, removeItemCart } = useContext(CartContext);
+
+  console.log(activeCategory);
+
+  useEffect(() => {
+    function activeProduct(typeCategory: string) {
+      if (typeCategory === 'Hambúrguer') {
+        setArrayActiveProduct(Hamburguers);
+      } else if (typeCategory === 'Bebidas') {
+        setArrayActiveProduct(Drinks);
+      } else if (typeCategory === 'Sobremesas') {
+        setArrayActiveProduct(Desserts);
+      } else if (typeCategory === 'Acompanhamentos') {
+        setArrayActiveProduct(SideDishes);
+      }
+    }
+
+    activeProduct(activeCategory);
+  }, [activeCategory, arrayActiveProduct]);
 
   const totalCartItensValue = cart.reduce(
     (acum, item) => acum + item.sumTotalProduct,
     0,
   );
 
-  const filteredProducts = Products.filter(product =>
+  const filteredProducts = arrayActiveProduct.filter(product =>
     product.title.toLowerCase().startsWith(searchText),
   );
 
   const arrayOfProducts =
-    filteredProducts.length > 0 ? filteredProducts : Products;
+    filteredProducts.length > 0 ? filteredProducts : arrayActiveProduct;
 
   return (
     <>
@@ -68,13 +95,26 @@ export function Home() {
           <h4>Categorias</h4>
           <span>Navegue por categoria</span>
           <DivItensCategories>
-            <CardItemCategory category="Hambúrguer" img={categoryHamburguer} />
             <CardItemCategory
+              setActiveCategory={setActiveCategory}
+              category="Hambúrguer"
+              img={categoryHamburguer}
+            />
+            <CardItemCategory
+              setActiveCategory={setActiveCategory}
               category="Acompanhamentos"
               img={categorySideDishes}
             />
-            <CardItemCategory category="Bebidas" img={categoryDrinks} />
-            <CardItemCategory category="Sobremesas" img={categoryDesserts} />
+            <CardItemCategory
+              setActiveCategory={setActiveCategory}
+              category="Bebidas"
+              img={categoryDrinks}
+            />
+            <CardItemCategory
+              setActiveCategory={setActiveCategory}
+              category="Sobremesas"
+              img={categoryDesserts}
+            />
           </DivItensCategories>
         </ContainerCategories>
         <ContainerProducts>

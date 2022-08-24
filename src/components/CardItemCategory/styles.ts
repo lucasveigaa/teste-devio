@@ -10,6 +10,7 @@ export const Container = styled.div`
   box-shadow: rgba(0, 0, 0, 0.09) 0px 1px 5px;
   border-radius: 5px;
   font-size: 0.875rem;
+  cursor: pointer;
 
   @media (max-width: 700px) {
     height: fit-content;
