@@ -6,6 +6,7 @@ import closeIcon from '../../assets/close-icon.svg';
 import molhobbqImg from '../../assets/molhobbq.png';
 import { CartContext } from '../../contexts/CartContext';
 import { AdditionalProps, ProductProps, TypeProduct } from '../../types';
+import { priceFormatter } from '../../utils/formatter';
 import { CardAdditionalIngredient } from '../CardAdditionalIngredient';
 import { CardProductModal } from '../CardProductModal';
 import {
@@ -141,7 +142,7 @@ export function ModalRequest({
               <span>{amountProduct}x</span>
               <span> {title}</span>
             </div>
-            <span>R$ {price}</span>
+            <span>{priceFormatter.format(price)}</span>
           </SubContainerFinalizingOrder>
           {!!additional &&
             additional.map(add => (
@@ -149,12 +150,12 @@ export function ModalRequest({
                 <div>
                   <span> {add.title}</span>
                 </div>
-                <span>R$ {add.value}</span>
+                <span>{priceFormatter.format(Number(add.value))}</span>
               </ContainerAdditionals>
             ))}
           <ContainerTotalAmount>
             <span>Total do pedido:</span>
-            <strong>R$ {sumTotalProduct}</strong>
+            <strong>{priceFormatter.format(sumTotalProduct)}</strong>
           </ContainerTotalAmount>
         </ContainerFinalizingOrder>
         <ContainerButtons>

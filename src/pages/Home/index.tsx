@@ -11,6 +11,7 @@ import { ModalRequest } from '../../components/ModalRequest';
 import { CartContext } from '../../contexts/CartContext';
 import { Products } from '../../services/products';
 import { TypeProduct } from '../../types';
+import { priceFormatter } from '../../utils/formatter';
 import {
   ButtonRemoveItemCart,
   CancelButton,
@@ -109,7 +110,9 @@ export function Home() {
                     <span className="amount">{item.amountProduct}x</span>
                     <span>{item.title}</span>
                   </div>
-                  <span>R$ {item.price * item.amountProduct}</span>
+                  <span>
+                    {priceFormatter.format(item.price * item.amountProduct)}
+                  </span>
                 </Requests>
                 {item.observations && (
                   <ObservationText>
@@ -120,14 +123,14 @@ export function Home() {
                   item.additional.map(add => (
                     <ContainerAdditionalItens key={add.title}>
                       <span>{add.title}</span>
-                      <span>R$ {add.value}</span>
+                      <span>{priceFormatter.format(Number(add.value))}</span>
                     </ContainerAdditionalItens>
                   ))}
               </SubContainerRequests>
             ))}
             <ContainerTotalAmount>
               <span>Total do pedido:</span>
-              <strong>R$ {totalCartItensValue}</strong>
+              <strong>{priceFormatter.format(totalCartItensValue)}</strong>
             </ContainerTotalAmount>
           </ContainerRequests>
         )}

@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { CartContext } from '../../contexts/CartContext';
 import { RequestsContext } from '../../contexts/RequestsContext';
+import { priceFormatter } from '../../utils/formatter';
 import {
   ButtonFinalizeCheckout,
   ClienteInfos,
@@ -85,7 +86,9 @@ export function Checkout() {
                     <span className="amount">{item.amountProduct}x</span>
                     <span>{item.title}</span>
                   </div>
-                  <span>R$ {item.price * item.amountProduct}</span>
+                  <span>
+                    {priceFormatter.format(item.price * item.amountProduct)}
+                  </span>
                 </Requests>
                 {!!item.observations && (
                   <ObservationText>
@@ -96,14 +99,14 @@ export function Checkout() {
                   item.additional.map(add => (
                     <ContainerAdditionalItens key={add.title}>
                       <span>{add.title}</span>
-                      <span>R$ {add.value}</span>
+                      <span>{priceFormatter.format(Number(add.value))}</span>
                     </ContainerAdditionalItens>
                   ))}
               </SubContainerRequests>
             ))}
             <ContainerTotalAmount>
               <span>Total do pedido:</span>
-              <strong>R$ {totalCartItensValue}</strong>
+              <strong>{priceFormatter.format(totalCartItensValue)}</strong>
             </ContainerTotalAmount>
           </ContainerRequests>
           <ClienteInfos>
@@ -175,7 +178,7 @@ export function Checkout() {
               <strong>Troco</strong>
               <input
                 readOnly
-                value={changeValue}
+                value={priceFormatter.format(changeValue)}
                 type="text"
                 id="changevalue"
               />

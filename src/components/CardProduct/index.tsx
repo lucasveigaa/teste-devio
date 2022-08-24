@@ -1,4 +1,5 @@
 import { TypeProduct } from '../../types';
+import { priceFormatter } from '../../utils/formatter';
 import { BackgroundColor, Container } from './styles';
 
 interface CardProductProps {
@@ -32,7 +33,7 @@ export function CardProduct({
       <img src={image} alt="Hamburguer" />
       <strong>{title}</strong>
       <span>{description}</span>
-      <strong>R${price}</strong>
+      <strong>{priceFormatter.format(price)}</strong>
     </Container>
   );
 }

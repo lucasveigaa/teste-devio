@@ -1,4 +1,5 @@
 import { FaMinus, FaPlus } from 'react-icons/fa';
+import { priceFormatter } from '../../utils/formatter';
 import {
   Container,
   ContainerDescriptionItem,
@@ -50,7 +51,7 @@ export function CardProductModal({
             </button>
           </div>
         </ContainerDescriptionItem>
-        <ItemValue>R${price}</ItemValue>
+        <ItemValue>{priceFormatter.format(price)}</ItemValue>
       </SubContainer>
     </Container>
   );

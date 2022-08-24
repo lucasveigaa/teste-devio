@@ -1,5 +1,6 @@
 import { ChangeEvent } from 'react';
 import { AdditionalProps } from '../../types';
+import { priceFormatter } from '../../utils/formatter';
 import { Container, SubContainer } from './styles';
 
 interface CardAdditionalIngredientProps {
@@ -40,7 +41,7 @@ export function CardAdditionalIngredient({
           <strong>{title}</strong>
           <span>{description}</span>
         </div>
-        <span>R${value}</span>
+        <span>{priceFormatter.format(value)}</span>
       </SubContainer>
       <input value={title} onChange={e => handleCheckbox(e)} type="checkbox" />
     </Container>
