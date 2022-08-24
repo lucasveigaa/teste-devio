@@ -52,6 +52,10 @@ export const ContainerRequests = styled.div`
   margin-top: 1rem;
 `;
 
+export const SubContainerRequests = styled.div`
+  margin-bottom: 2rem;
+`;
+
 export const Requests = styled.div`
   padding-bottom: 1rem;
   display: flex;
@@ -59,6 +63,20 @@ export const Requests = styled.div`
 
   .amount {
     margin-right: 0.5rem;
+  }
+`;
+
+export const ObservationText = styled.span`
+  display: block;
+  font-size: 0.75rem;
+`;
+
+export const ContainerAdditionalItens = styled.div`
+  display: flex;
+  justify-content: space-between;
+
+  span {
+    font-size: 0.75rem;
   }
 `;
 

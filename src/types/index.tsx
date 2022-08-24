@@ -18,6 +18,7 @@ export interface ProductProps {
   price: number;
   title: string;
   amountProduct: number;
-  observations?: string;
+  observations: string;
   additional: AdditionalProps[];
+  sumTotalProduct: number;
 }

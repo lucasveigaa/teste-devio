@@ -94,7 +94,6 @@ export const Requests = styled.div`
 
 export const ObservationText = styled.span`
   display: block;
-  margin-bottom: 0.5arem;
   font-size: 0.75rem;
 `;
 

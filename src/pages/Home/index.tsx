@@ -30,15 +30,12 @@ import {
 export function Home() {
   const [modalIsOpen, setModalisOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState({} as TypeProduct);
-  const [totalAdditionalValue, setTotalAdditionalValue] = useState(0);
-  const { cart } = useContext(CartContext);
+  const { cart, cleanCart } = useContext(CartContext);
 
   const totalCartItensValue = cart.reduce(
-    (acum, item) => acum + item.amountProduct * item.price,
+    (acum, item) => acum + item.sumTotalProduct,
     0,
   );
-
-  const sumTotalCartValue = totalCartItensValue + totalAdditionalValue;
 
   return (
     <>
@@ -46,7 +43,6 @@ export function Home() {
         selectedProduct={selectedProduct}
         modalIsOpen={modalIsOpen}
         setModalisOpen={setModalisOpen}
-        setTotalAdditionalValue={setTotalAdditionalValue}
       />
       <Container>
         <div>
@@ -111,13 +107,15 @@ export function Home() {
             ))}
             <ContainerTotalAmount>
               <span>Total do pedido:</span>
-              <strong>R$ {sumTotalCartValue}</strong>
+              <strong>R$ {totalCartItensValue}</strong>
             </ContainerTotalAmount>
           </ContainerRequests>
         )}
         <ContainerButtons>
           <div>
-            <CancelButton type="button">Cancelar</CancelButton>
+            <CancelButton onClick={() => cleanCart()} type="button">
+              Cancelar
+            </CancelButton>
             <Link to="/checkout">
               <FinalizeButton type="button">Finalizar pedido</FinalizeButton>
             </Link>

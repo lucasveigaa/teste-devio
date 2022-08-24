@@ -1,27 +1,31 @@
 import { useContext } from 'react';
 import { FaCreditCard, FaMoneyBillAlt, FaRegCreditCard } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 import { CartContext } from '../../contexts/CartContext';
 import {
   ButtonFinalizeCheckout,
   ClienteInfos,
   Container,
+  ContainerAdditionalItens,
   ContainerButtons,
   ContainerChangeValue,
   ContainerClientName,
   ContainerPaymentForm,
   ContainerRequests,
   ContainerTotalAmount,
+  ObservationText,
   PaymentForm,
   Requests,
   SubContainer,
+  SubContainerRequests,
   SummaryPayment,
 } from './styles';
 
 export function Checkout() {
-  const { cart } = useContext(CartContext);
+  const { cart, cleanCart } = useContext(CartContext);
 
-  const totalCartValue = cart.reduce(
-    (acum, item) => acum + item.amountProduct * item.price,
+  const totalCartItensValue = cart.reduce(
+    (acum, item) => acum + item.sumTotalProduct,
     0,
   );
 
@@ -36,17 +40,31 @@ export function Checkout() {
           <strong>Resumo da compra</strong>
           <ContainerRequests>
             {cart.map(item => (
-              <Requests>
-                <div>
-                  <span className="amount">{item.amountProduct}x</span>
-                  <span>{item.title}</span>
-                </div>
-                <span>R$ {item.price * item.amountProduct}</span>
-              </Requests>
+              <SubContainerRequests key={item.id}>
+                <Requests>
+                  <div>
+                    <span className="amount">{item.amountProduct}x</span>
+                    <span>{item.title}</span>
+                  </div>
+                  <span>R$ {item.price * item.amountProduct}</span>
+                </Requests>
+                {!!item.observations && (
+                  <ObservationText>
+                    Observações: {item.observations}
+                  </ObservationText>
+                )}
+                {!!item.additional &&
+                  item.additional.map(add => (
+                    <ContainerAdditionalItens>
+                      <span>{add.title}</span>
+                      <span>R$ {add.value}</span>
+                    </ContainerAdditionalItens>
+                  ))}
+              </SubContainerRequests>
             ))}
             <ContainerTotalAmount>
               <span>Total do pedido:</span>
-              <strong>R$ {totalCartValue}</strong>
+              <strong>R$ {totalCartItensValue}</strong>
             </ContainerTotalAmount>
           </ContainerRequests>
           <ClienteInfos>
@@ -95,9 +113,15 @@ export function Checkout() {
         </ContainerPaymentForm>
       </SubContainer>
       <ContainerButtons>
-        <ButtonFinalizeCheckout variant="white" type="button">
-          Cancelar
-        </ButtonFinalizeCheckout>
+        <Link to="/">
+          <ButtonFinalizeCheckout
+            onClick={() => cleanCart()}
+            variant="white"
+            type="button"
+          >
+            Cancelar
+          </ButtonFinalizeCheckout>
+        </Link>
         <ButtonFinalizeCheckout variant="green" type="submit">
           Finalizar pedido
         </ButtonFinalizeCheckout>

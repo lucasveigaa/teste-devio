@@ -24,14 +24,12 @@ interface ModalRequestProps {
   modalIsOpen: boolean;
   setModalisOpen: React.Dispatch<React.SetStateAction<boolean>>;
   selectedProduct: TypeProduct;
-  setTotalAdditionalValue: React.Dispatch<React.SetStateAction<number>>;
 }
 
 export function ModalRequest({
   modalIsOpen,
   setModalisOpen,
   selectedProduct,
-  setTotalAdditionalValue,
 }: ModalRequestProps) {
   const { description, id, image, price, title } = selectedProduct;
   const [amountProduct, setAmountProduct] = useState(1);
@@ -40,19 +38,6 @@ export function ModalRequest({
   const [additional, setAdditional] = useState<AdditionalProps[]>([]);
 
   const { addToCart } = useContext(CartContext);
-
-  useEffect(() => {
-    setProductToCart({
-      description,
-      id,
-      image,
-      price,
-      title,
-      amountProduct,
-      observations,
-      additional,
-    });
-  }, [amountProduct, observations, additional]);
 
   function closeModal() {
     setModalisOpen(false);
@@ -73,10 +58,23 @@ export function ModalRequest({
     setAmountProduct(1);
     setObservations('');
     setAdditional([]);
-    setTotalAdditionalValue(sumAdditionalValues);
   }
 
-  const sumTotalCart = amountProduct * price + sumAdditionalValues;
+  const sumTotalProduct = amountProduct * price + sumAdditionalValues;
+
+  useEffect(() => {
+    setProductToCart({
+      description,
+      id,
+      image,
+      price,
+      title,
+      amountProduct,
+      observations,
+      additional,
+      sumTotalProduct,
+    });
+  }, [modalIsOpen, amountProduct, observations, additional]);
 
   return (
     <Modal
@@ -156,11 +154,15 @@ export function ModalRequest({
             ))}
           <ContainerTotalAmount>
             <span>Total do pedido:</span>
-            <strong>R$ {sumTotalCart}</strong>
+            <strong>R$ {sumTotalProduct}</strong>
           </ContainerTotalAmount>
         </ContainerFinalizingOrder>
         <ContainerButtons>
-          <ButtonFinalizeRequest variant="white" type="button">
+          <ButtonFinalizeRequest
+            onClick={() => closeModal()}
+            variant="white"
+            type="button"
+          >
             Continuar adicionando
           </ButtonFinalizeRequest>
           <ButtonFinalizeRequest
