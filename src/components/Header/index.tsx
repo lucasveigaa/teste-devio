@@ -14,8 +14,8 @@ export function Header() {
           <a className="isOnThispage" href="/">
             Pedidos
           </a>
-          <a href="/">Cozinha</a>
-          <a href="/">Retirada</a>
+          <Link to="/kitchen">Cozinha</Link>
+          <Link to="/withdraw">Retirada</Link>
         </nav>
       </SubContainer>
     </Container>

@@ -2,6 +2,7 @@ import { Route, Routes } from 'react-router-dom';
 import { DefaultLayout } from './layouts/DefaultLayout';
 import { Checkout } from './pages/Checkout';
 import { Home } from './pages/Home';
+import { Kitchen } from './pages/Kitchen';
 import { Withdraw } from './pages/Withdraw';
 
 export function Router() {
@@ -11,6 +12,7 @@ export function Router() {
         <Route path="/" element={<Home />} />
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/withdraw" element={<Withdraw />} />
+        <Route path="/kitchen" element={<Kitchen />} />
       </Route>
     </Routes>
   );
