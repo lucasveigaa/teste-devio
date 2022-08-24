@@ -22,3 +22,9 @@ export interface ProductProps {
   additional: AdditionalProps[];
   sumTotalProduct: number;
 }
+
+export interface Requests {
+  cart: ProductProps[];
+  client: string;
+  paymentForm: string;
+}

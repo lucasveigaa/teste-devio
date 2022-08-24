@@ -25,7 +25,7 @@ export function Kitchen() {
           <SubContainerRequest>
             <strong>Cliente: {client}</strong>
             {cart.map(item => (
-              <Request>
+              <Request key={item.id}>
                 <InformationRequest>
                   <span>
                     {item.amountProduct}x {item.title}
@@ -35,7 +35,7 @@ export function Kitchen() {
                   )}
                   <span>Adicionais:</span>
                   {item.additional.map(add => (
-                    <span>{add.title}</span>
+                    <span key={add.title}>{add.title}</span>
                   ))}
                 </InformationRequest>
               </Request>
@@ -57,7 +57,7 @@ export function Kitchen() {
           <SubContainerRequest>
             <strong>Cliente: {client}</strong>
             {cart.map(item => (
-              <Request>
+              <Request key={item.id}>
                 <InformationRequest>
                   <span>
                     {item.amountProduct}x {item.title}
@@ -67,7 +67,7 @@ export function Kitchen() {
                   )}
                   <span>Adicionais:</span>
                   {item.additional.map(add => (
-                    <span>{add.title}</span>
+                    <span key={add.title}>{add.title}</span>
                   ))}
                 </InformationRequest>
               </Request>

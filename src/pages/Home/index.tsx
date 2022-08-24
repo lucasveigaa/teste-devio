@@ -118,7 +118,7 @@ export function Home() {
                 )}
                 {item.additional &&
                   item.additional.map(add => (
-                    <ContainerAdditionalItens>
+                    <ContainerAdditionalItens key={add.title}>
                       <span>{add.title}</span>
                       <span>R$ {add.value}</span>
                     </ContainerAdditionalItens>

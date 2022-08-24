@@ -1,8 +1,9 @@
-import { ChangeEvent, useContext, useState } from 'react';
+import { ChangeEvent, SyntheticEvent, useContext, useState } from 'react';
 import { FaCreditCard, FaMoneyBillAlt, FaRegCreditCard } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { CartContext } from '../../contexts/CartContext';
+import { RequestsContext } from '../../contexts/RequestsContext';
 import {
   ButtonFinalizeCheckout,
   ClienteInfos,
@@ -30,8 +31,14 @@ export function Checkout() {
     addPaymentForm,
     setChangeValue,
     changeValue,
+    paymentForm,
+    client,
   } = useContext(CartContext);
+  const { addToRequests, requests } = useContext(RequestsContext);
   const [deliveredValue, setDeliveredValue] = useState(0);
+  const navigate = useNavigate();
+
+  console.log(requests);
 
   const totalCartItensValue = cart.reduce(
     (acum, item) => acum + item.sumTotalProduct,
@@ -47,11 +54,22 @@ export function Checkout() {
       ? deliveredValue - totalCartItensValue
       : 0;
 
-  function handleFinalizeRequest() {
-    toast.success('Pedido finalizado com sucesso!');
+  function handleFinalizeRequest(e: SyntheticEvent) {
+    e?.preventDefault();
+    if (paymentForm && client) {
+      toast.success('Pedido finalizado com sucesso!');
+
+      const completedRequest = { cart, client, paymentForm };
+
+      addToRequests(completedRequest);
+      navigate('/');
+      return;
+    }
+    toast.warn('Preencha o nome do cliente e a forma de pagamento!');
   }
 
   setChangeValue(handleChangeValue);
+
   return (
     <Container>
       <h1>
@@ -78,7 +96,7 @@ export function Checkout() {
                 )}
                 {!!item.additional &&
                   item.additional.map(add => (
-                    <ContainerAdditionalItens>
+                    <ContainerAdditionalItens key={add.title}>
                       <span>{add.title}</span>
                       <span>R$ {add.value}</span>
                     </ContainerAdditionalItens>
@@ -157,7 +175,12 @@ export function Checkout() {
             </div>
             <div>
               <strong>Troco</strong>
-              <input value={changeValue} type="text" id="changevalue" />
+              <input
+                readOnly
+                value={changeValue}
+                type="text"
+                id="changevalue"
+              />
             </div>
           </ContainerChangeValue>
         </ContainerPaymentForm>
@@ -172,15 +195,14 @@ export function Checkout() {
             Cancelar
           </ButtonFinalizeCheckout>
         </Link>
-        <Link to="/">
-          <ButtonFinalizeCheckout
-            onClick={() => handleFinalizeRequest()}
-            variant="green"
-            type="submit"
-          >
-            Finalizar pedido
-          </ButtonFinalizeCheckout>
-        </Link>
+
+        <ButtonFinalizeCheckout
+          onClick={e => handleFinalizeRequest(e)}
+          variant="green"
+          type="submit"
+        >
+          Finalizar pedido
+        </ButtonFinalizeCheckout>
       </ContainerButtons>
     </Container>
   );

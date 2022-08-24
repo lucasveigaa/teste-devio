@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const Container = styled.form`
+export const Container = styled.main`
   padding: 2rem 0;
   font-size: 0.875rem;
   display: flex;

@@ -145,7 +145,7 @@ export function ModalRequest({
           </SubContainerFinalizingOrder>
           {!!additional &&
             additional.map(add => (
-              <ContainerAdditionals>
+              <ContainerAdditionals key={add.title}>
                 <div>
                   <span> {add.title}</span>
                 </div>
