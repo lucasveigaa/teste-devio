@@ -1,8 +1,11 @@
 import { FaHamburger } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Container, SubContainer } from './styles';
 
 export function Header() {
+  const { pathname } = useLocation();
+  console.log(pathname);
+
   return (
     <Container>
       <SubContainer>
@@ -11,11 +14,21 @@ export function Header() {
           <strong>fastfood</strong>
         </Link>
         <nav>
-          <a className="isOnThispage" href="/">
+          <Link className={pathname === '/' ? 'isOnThispage' : ''} to="/">
             Pedidos
-          </a>
-          <Link to="/kitchen">Cozinha</Link>
-          <Link to="/withdraw">Retirada</Link>
+          </Link>
+          <Link
+            className={pathname === '/kitchen' ? 'isOnThispage' : ''}
+            to="/kitchen"
+          >
+            Cozinha
+          </Link>
+          <Link
+            className={pathname === '/withdraw' ? 'isOnThispage' : ''}
+            to="/withdraw"
+          >
+            Retirada
+          </Link>
         </nav>
       </SubContainer>
     </Container>
