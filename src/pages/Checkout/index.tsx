@@ -22,7 +22,7 @@ import {
 } from './styles';
 
 export function Checkout() {
-  const { cart, cleanCart } = useContext(CartContext);
+  const { cart, cleanCart, addClient } = useContext(CartContext);
 
   const totalCartItensValue = cart.reduce(
     (acum, item) => acum + item.sumTotalProduct,
@@ -70,7 +70,12 @@ export function Checkout() {
           <ClienteInfos>
             <ContainerClientName>
               <strong>Nome do cliente</strong>
-              <input placeholder="Primeiro nome" type="text" id="clientname" />
+              <input
+                onChange={e => addClient(e.target.value)}
+                placeholder="Primeiro nome"
+                type="text"
+                id="clientname"
+              />
             </ContainerClientName>
             <div>
               <strong>Código</strong>
