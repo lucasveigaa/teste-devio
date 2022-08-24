@@ -5,6 +5,7 @@ interface CartContextType {
   addToCart: (product: ProductProps) => void;
   cart: ProductProps[];
   cleanCart: () => void;
+  removeItemCart: (product: ProductProps) => void;
   client: string;
   addClient: (name: string) => void;
   addPaymentForm: (form: string) => void;
@@ -25,12 +26,17 @@ export function CartProvider({ children }: PropsWithChildren) {
     setCart([...cart, product]);
   }
 
-  function addClient(name: string) {
-    setClient(name);
-  }
-
   function cleanCart() {
     setCart([]);
+  }
+
+  function removeItemCart(product: ProductProps) {
+    const filtArray = cart.filter(item => item !== product);
+    setCart(filtArray);
+  }
+
+  function addClient(name: string) {
+    setClient(name);
   }
 
   function addPaymentForm(form: string) {
@@ -43,6 +49,7 @@ export function CartProvider({ children }: PropsWithChildren) {
         addToCart,
         cart,
         cleanCart,
+        removeItemCart,
         addClient,
         client,
         addPaymentForm,

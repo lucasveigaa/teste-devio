@@ -68,7 +68,7 @@ export const ContainerRequests = styled.div`
   margin-right: calc(25% - 180px);
   border-radius: 5px;
   border: 1px solid #acacac;
-  padding: 1.5rem;
+  padding: 2rem;
   margin-top: 2rem;
 
   @media (max-width: 500px) {
@@ -80,6 +80,25 @@ export const ContainerRequests = styled.div`
 
 export const SubContainerRequests = styled.div`
   margin-bottom: 2rem;
+  position: relative;
+  padding-right: 1rem;
+`;
+
+export const ButtonRemoveItemCart = styled.button`
+  position: absolute;
+  top: 0.1rem;
+  right: -1.3rem;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+
+  img {
+    color: red;
+  }
+
+  &:hover {
+    filter: brightness(85%);
+  }
 `;
 
 export const Requests = styled.div`

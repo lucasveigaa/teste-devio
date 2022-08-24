@@ -4,6 +4,7 @@ import categoryDesserts from '../../assets/category-desserts.png';
 import categoryDrinks from '../../assets/category-drinks.png';
 import categoryHamburguer from '../../assets/category-hamburguer.png';
 import categorySideDishes from '../../assets/category-side-dishes.png';
+import closeIcon from '../../assets/close-icon.svg';
 import { CardItemCategory } from '../../components/CardItemCategory';
 import { CardProduct } from '../../components/CardProduct';
 import { ModalRequest } from '../../components/ModalRequest';
@@ -11,6 +12,7 @@ import { CartContext } from '../../contexts/CartContext';
 import { Products } from '../../services/products';
 import { TypeProduct } from '../../types';
 import {
+  ButtonRemoveItemCart,
   CancelButton,
   Container,
   ContainerAdditionalItens,
@@ -30,7 +32,7 @@ import {
 export function Home() {
   const [modalIsOpen, setModalisOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState({} as TypeProduct);
-  const { cart, cleanCart } = useContext(CartContext);
+  const { cart, cleanCart, removeItemCart } = useContext(CartContext);
 
   const totalCartItensValue = cart.reduce(
     (acum, item) => acum + item.sumTotalProduct,
@@ -84,6 +86,12 @@ export function Home() {
           <ContainerRequests>
             {cart.map(item => (
               <SubContainerRequests key={item.id}>
+                <ButtonRemoveItemCart
+                  type="button"
+                  onClick={() => removeItemCart(item)}
+                >
+                  <img src={closeIcon} alt="Botão de fechar" />
+                </ButtonRemoveItemCart>
                 <Requests>
                   <div>
                     <span className="amount">{item.amountProduct}x</span>
@@ -91,12 +99,12 @@ export function Home() {
                   </div>
                   <span>R$ {item.price * item.amountProduct}</span>
                 </Requests>
-                {!!item.observations && (
+                {item.observations && (
                   <ObservationText>
                     Observações: {item.observations}
                   </ObservationText>
                 )}
-                {!!item.additional &&
+                {item.additional &&
                   item.additional.map(add => (
                     <ContainerAdditionalItens>
                       <span>{add.title}</span>
