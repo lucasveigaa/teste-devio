@@ -13,7 +13,10 @@ export function Header() {
           <strong>fastfood</strong>
         </Link>
         <nav>
-          <Link className={pathname === '/' ? 'isOnThispage' : ''} to="/">
+          <Link
+            className={pathname === '/checkout' ? 'isOnThispage' : ''}
+            to="/checkout"
+          >
             Pedidos
           </Link>
           <Link

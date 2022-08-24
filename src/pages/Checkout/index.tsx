@@ -34,7 +34,7 @@ export function Checkout() {
     paymentForm,
     client,
   } = useContext(CartContext);
-  const { addToRequests, requests } = useContext(RequestsContext);
+  const { addToRequests } = useContext(RequestsContext);
   const [deliveredValue, setDeliveredValue] = useState(0);
   const navigate = useNavigate();
 

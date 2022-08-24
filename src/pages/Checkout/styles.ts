@@ -9,7 +9,7 @@ export const Container = styled.main`
   margin: 0 auto;
 
   @media (max-width: 850px) {
-    padding: 2rem 1rem;
+    /* padding: 2rem 1rem; */
   }
 
   h1 {
@@ -28,6 +28,14 @@ export const SubContainer = styled.div`
   margin-top: 2rem;
 
   @media (max-width: 850px) {
+    justify-content: flex-start;
+    max-width: 90%;
+    margin: 0 auto;
+    margin-top: 2rem;
+    gap: 2rem;
+  }
+
+  @media (max-width: 500px) {
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -40,6 +48,9 @@ export const SummaryPayment = styled.div`
 
   @media (max-width: 850px) {
     margin-bottom: 2rem;
+  }
+  @media (max-width: 500px) {
+    width: 100%;
   }
 `;
 
