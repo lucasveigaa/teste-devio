@@ -17,11 +17,13 @@ export function RequestsProvider({ children }: PropsWithChildren) {
   const [requests, setRequests] = useState<Requests[]>([]);
   const [readyRequests, setReadyRequests] = useState<Requests[]>([]);
 
-  const { cleanCart } = useContext(CartContext);
+  const { cleanCart, addClient, addPaymentForm } = useContext(CartContext);
 
   function addToRequests(request: Requests) {
     setRequests([...requests, request]);
     cleanCart();
+    addClient('');
+    addPaymentForm('');
   }
 
   function addReadyRequests(request: Requests) {

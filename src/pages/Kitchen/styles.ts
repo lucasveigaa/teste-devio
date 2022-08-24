@@ -68,6 +68,14 @@ export const InformationRequest = styled.div`
   flex-direction: column;
 `;
 
+export const ContainerAdditional = styled.div`
+  span {
+    &:not(:last-child):not(:first-child)::after {
+      content: ' ,';
+    }
+  }
+`;
+
 export const ContainerButtons = styled.div``;
 
 interface ButtonProps {

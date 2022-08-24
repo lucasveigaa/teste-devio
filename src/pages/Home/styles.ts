@@ -150,10 +150,10 @@ export const ContainerButtons = styled.div`
   display: flex;
   justify-content: flex-end;
   margin-right: calc(25% - 180px);
-  width: 100%;
   margin-bottom: 1rem;
 
   @media (max-width: 700px) {
+    width: 100%;
     flex-direction: column;
     max-width: 90%;
     margin: 0 auto;

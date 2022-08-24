@@ -5,6 +5,7 @@ import { RequestsContext } from '../../contexts/RequestsContext';
 import {
   Button,
   Container,
+  ContainerAdditional,
   ContainerButtons,
   ContainerRequest,
   InformationRequest,
@@ -22,7 +23,6 @@ export function Kitchen() {
     readyRequests,
     removeReadyRequest,
   } = useContext(RequestsContext);
-  console.log(readyRequests);
 
   return (
     <Container>
@@ -41,10 +41,14 @@ export function Kitchen() {
                     {item.observations && (
                       <span>Observações: {item.observations}</span>
                     )}
-                    <span>Adicionais:</span>
-                    {item.additional.map(add => (
-                      <span key={add.title}>{add.title}</span>
-                    ))}
+                    {item.additional.length > 0 && (
+                      <ContainerAdditional>
+                        <span>Adicionais:</span>
+                        {item.additional.map(add => (
+                          <span key={add.title}> {add.title} </span>
+                        ))}
+                      </ContainerAdditional>
+                    )}
                   </InformationRequest>
                 </Request>
               ))}
