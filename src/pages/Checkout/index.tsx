@@ -1,6 +1,7 @@
 import { ChangeEvent, useContext, useState } from 'react';
 import { FaCreditCard, FaMoneyBillAlt, FaRegCreditCard } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { CartContext } from '../../contexts/CartContext';
 import {
   ButtonFinalizeCheckout,
@@ -45,6 +46,10 @@ export function Checkout() {
     deliveredValue > totalCartItensValue
       ? deliveredValue - totalCartItensValue
       : 0;
+
+  function handleFinalizeRequest() {
+    toast.success('Pedido finalizado com sucesso!');
+  }
 
   setChangeValue(handleChangeValue);
   return (
@@ -167,9 +172,15 @@ export function Checkout() {
             Cancelar
           </ButtonFinalizeCheckout>
         </Link>
-        <ButtonFinalizeCheckout variant="green" type="submit">
-          Finalizar pedido
-        </ButtonFinalizeCheckout>
+        <Link to="/">
+          <ButtonFinalizeCheckout
+            onClick={() => handleFinalizeRequest()}
+            variant="green"
+            type="submit"
+          >
+            Finalizar pedido
+          </ButtonFinalizeCheckout>
+        </Link>
       </ContainerButtons>
     </Container>
   );

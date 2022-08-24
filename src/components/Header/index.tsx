@@ -4,7 +4,6 @@ import { Container, SubContainer } from './styles';
 
 export function Header() {
   const { pathname } = useLocation();
-  console.log(pathname);
 
   return (
     <Container>
