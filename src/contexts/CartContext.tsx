@@ -1,4 +1,4 @@
-import { createContext, PropsWithChildren, useState } from 'react';
+import { createContext, PropsWithChildren, useMemo, useState } from 'react';
 import { ProductProps } from '../types';
 
 interface CartContextType {
@@ -43,22 +43,21 @@ export function CartProvider({ children }: PropsWithChildren) {
     setPaymentForm(form);
   }
 
-  return (
-    <CartContext.Provider
-      value={{
-        addToCart,
-        cart,
-        cleanCart,
-        removeItemCart,
-        addClient,
-        client,
-        addPaymentForm,
-        paymentForm,
-        setChangeValue,
-        changeValue,
-      }}
-    >
-      {children}
-    </CartContext.Provider>
+  const value = useMemo(
+    () => ({
+      addToCart,
+      cart,
+      cleanCart,
+      removeItemCart,
+      addClient,
+      client,
+      addPaymentForm,
+      paymentForm,
+      setChangeValue,
+      changeValue,
+    }),
+    [cart, client, paymentForm, changeValue],
   );
+
+  return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
 }

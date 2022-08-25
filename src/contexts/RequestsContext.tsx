@@ -1,4 +1,10 @@
-import { createContext, PropsWithChildren, useContext, useState } from 'react';
+import {
+  createContext,
+  PropsWithChildren,
+  useContext,
+  useMemo,
+  useState,
+} from 'react';
 import { Requests } from '../types';
 import { CartContext } from './CartContext';
 
@@ -43,17 +49,20 @@ export function RequestsProvider({ children }: PropsWithChildren) {
     setReadyRequests(filteredRequests);
   }
 
+  const value = useMemo(
+    () => ({
+      addToRequests,
+      requests,
+      removeRequest,
+      addReadyRequests,
+      readyRequests,
+      removeReadyRequest,
+    }),
+    [requests, readyRequests],
+  );
+
   return (
-    <RequestsContext.Provider
-      value={{
-        addToRequests,
-        requests,
-        removeRequest,
-        addReadyRequests,
-        readyRequests,
-        removeReadyRequest,
-      }}
-    >
+    <RequestsContext.Provider value={value}>
       {children}
     </RequestsContext.Provider>
   );
