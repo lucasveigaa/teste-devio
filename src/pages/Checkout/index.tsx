@@ -55,6 +55,10 @@ export function Checkout() {
 
   function handleFinalizeRequest(e: SyntheticEvent) {
     e?.preventDefault();
+    if (cart.length === 0) {
+      toast.warn('É necessário adicionar produtos ao seu pedido!');
+      return;
+    }
     if (paymentForm && client) {
       toast.success('Pedido finalizado com sucesso!');
 
@@ -64,6 +68,7 @@ export function Checkout() {
       navigate('/');
       return;
     }
+
     toast.warn('Preencha o nome do cliente e a forma de pagamento!');
   }
 

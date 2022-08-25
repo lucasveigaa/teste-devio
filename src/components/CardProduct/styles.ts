@@ -47,9 +47,9 @@ export const BackgroundColor = styled.div<TypeBackgroundColor>`
   border-top-right-radius: 10px;
   border-top-left-radius: 10px;
 
-  background: ${props => props.index <= 3 && 'red'};
-  background: ${props => props.index > 3 && props.index <= 7 && 'blue'};
-  background: ${props => props.index > 7 && props.index <= 11 && 'green'};
+  background: ${props => props.index <= 3 && '#E12E2B'};
+  background: ${props => props.index > 3 && props.index <= 7 && '#328509'};
+  background: ${props => props.index > 7 && props.index <= 11 && '#FEE033'};
 
   @media (max-width: 700px) {
     width: 150px;
